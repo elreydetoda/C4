@@ -6,7 +6,7 @@ on:
 
 jobs:
   handle_new_issue:
-    runs_on: ubuntu-latest
+    runs-on: ubuntu-latest
     steps:
       - name: Handle new issue
         id: new-issue
