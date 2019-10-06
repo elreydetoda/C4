@@ -1,0 +1,8 @@
+name: NFS Automation
+
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  build:
