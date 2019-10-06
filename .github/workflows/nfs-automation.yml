@@ -8,6 +8,8 @@ jobs:
   handle_new_issue:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout
+        uses: actions/checkout@v1
       - name: Handle new issue
         id: new-issue
         uses: ./actions/nfs-automation
