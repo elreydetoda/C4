@@ -6,3 +6,9 @@ on:
 
 jobs:
   build:
+    steps:
+      - name: Handle new issue
+        id: new-issue
+        uses: ./actions/nfs-automation
+        with:
+          repo-token: ${{ secrets.GH_TOKEN }}
