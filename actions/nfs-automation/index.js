@@ -14,7 +14,7 @@ async function handleNewIssue() {
     const issue = context.payload.issue;
     console.log(issue.labels);
 
-    if (!issue.title.startsWith("[NFS]") || !issue.labels.contains("NFS")) {
+    if (!issue.title.startsWith("[NFS]") || !hasNfsLabel(issue.labels)) {
         console.log("The issue is not a new NFS submission.");
         return;
     }
@@ -40,6 +40,10 @@ async function handleNewIssue() {
         body: "Test issue body for now",
     });
 
+}
+
+function hasNfsLabel(labelArray) {
+    labelArray.filter(label => { return label.name == "NFS" }).length > 0
 }
 
 handleNewIssue()
