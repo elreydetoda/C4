@@ -37,8 +37,8 @@ async function handleNewIssue() {
         owner: context.payload.repository.owner.login,
         repo: context.payload.repository.name,
         title: "[VIDEO] ".concat(title),
-        labels: ["video", "NFS", "enhancement", title],
-        body: "Test issue body for now",
+        // labels: ["video", "NFS", "enhancement", title],
+        // body: "Test issue body for now",
     });
 
 }
