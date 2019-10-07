@@ -1751,6 +1751,7 @@ async function handleNewIssue() {
     }
 
     const issue = context.payload.issue;
+    console.log(issue.labels);
 
     if (!issue.title.startsWith("[NFS]") || !issue.labels.contains("NFS")) {
         console.log("The issue is not a new NFS submission.");
