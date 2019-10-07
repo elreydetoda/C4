@@ -2,7 +2,7 @@ name: NFS Automation
 
 on:
   issues:
-    types: [opened]
+    types: [opened, edited]
 
 jobs:
   handle_new_issue:
