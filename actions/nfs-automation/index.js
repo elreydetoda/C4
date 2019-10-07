@@ -1,10 +1,10 @@
-import { getInput } from '@actions/core';
-import { GitHub, context as _context } from '@actions/github';
+const core = require('@actions/core');
+const github = require('@actions/github');
 
 async function handleNewIssue() {
-    const token = getInput('repo-token');
-    const octokit = new GitHub(token);
-    const context = _context;
+    const token = core.getInput('repo-token');
+    const octokit = new github.GitHub(token);
+    const context = github.context;
 
     if (context.payload.issue == undefined) {
         throw Error(`This action should be run against issue events.
