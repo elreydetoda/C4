@@ -12,8 +12,8 @@ async function handleNewIssue() {
     }
 
     const issue = context.payload.issue;
-    console.log(issue.title.startsWith("[NFS]"));
-    console.log(hasNfsLabel(issue.labels));
+    console.log(context.payload.repository.owner);
+    console.log(context.payload.repository.name);
 
     if (!(issue.title.startsWith("[NFS]") && hasNfsLabel(issue.labels))) {
         console.log("The issue is not a new NFS submission.");
