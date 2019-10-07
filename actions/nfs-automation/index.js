@@ -21,7 +21,7 @@ async function handleNewIssue() {
     }
 
     title = issue.title.slice(5);
-    var color = "000000".replace(/0/g,function(){return (~~(Math.random()*16)).toString(16);});
+    color = "000000".replace(/0/g,function(){return (~~(Math.random()*16)).toString(16);});
 
     // Create a label with a valid description
     await octokit.issues.createLabel({
