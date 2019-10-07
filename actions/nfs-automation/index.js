@@ -27,7 +27,7 @@ async function handleNewIssue() {
     await octokit.issues.createLabel({
         ...context.payload.repository.owner,
         ...context.payload.repository.name,
-        ...color,
+        color: color,
         name: title,
         description: `specific to ${title} c2 framework`,
     });
