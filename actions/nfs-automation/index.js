@@ -26,7 +26,7 @@ async function handleNewIssue() {
     // Create a label with a valid description
     await octokit.issues.createLabel({
         owner: context.payload.repository.owner,
-        name: context.payload.repository.name,
+        repo: context.payload.repository.name,
         color: color,
         name: title,
         description: `specific to ${title} c2 framework`,
@@ -35,7 +35,7 @@ async function handleNewIssue() {
     // Create the issue for the video
     await octokit.issues.create({
         owner: context.payload.repository.owner,
-        name: context.payload.repository.name,
+        repo: context.payload.repository.name,
         title: "[VIDEO] ".concat(title),
         labels: ["video", "NFS", "enhancement", title],
         body: "Test issue body for now",
