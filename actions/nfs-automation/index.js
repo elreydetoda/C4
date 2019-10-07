@@ -44,7 +44,7 @@ async function handleNewIssue() {
 }
 
 function hasNfsLabel(labelArray) {
-    labelArray.filter(label => { return label.name == 'NFS' }).length > 0
+    return labelArray.filter(label => { return label.name == 'NFS' }).length > 0
 }
 
 handleNewIssue()
