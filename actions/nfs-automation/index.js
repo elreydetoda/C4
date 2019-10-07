@@ -47,7 +47,7 @@ handleNewIssue()
             console.log("Success");
         },
         err => {
-            console.log("Errored");
+            console.log(`Errored: ${err}`);
         }
     )
     .then(
