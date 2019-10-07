@@ -12,7 +12,7 @@ async function handleNewIssue() {
     }
 
     const issue = context.payload.issue;
-    console.log(context.payload.repository.owner);
+    console.log(context.payload.repository.owner.login);
     console.log(context.payload.repository.name);
 
     if (!(issue.title.startsWith("[NFS]") && hasNfsLabel(issue.labels))) {
@@ -25,7 +25,7 @@ async function handleNewIssue() {
 
     // Create a label with a valid description
     await octokit.issues.createLabel({
-        owner: context.payload.repository.owner,
+        owner: context.payload.repository.owner.login,
         repo: context.payload.repository.name,
         color: color,
         name: title,
@@ -34,7 +34,7 @@ async function handleNewIssue() {
 
     // Create the issue for the video
     await octokit.issues.create({
-        owner: context.payload.repository.owner,
+        owner: context.payload.repository.owner.login,
         repo: context.payload.repository.name,
         title: "[VIDEO] ".concat(title),
         labels: ["video", "NFS", "enhancement", title],
