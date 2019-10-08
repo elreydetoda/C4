@@ -1,11 +1,9 @@
 const core = require('@actions/core');
-const github = require('@actions/github')({
-    log: console
-});
+const github = require('@actions/github');
 
 async function handleNewIssue() {
     const token = core.getInput('repo-token');
-    const octokit = new github.GitHub(token);
+    const octokit = new github.GitHub(token, { log: console });
     const context = github.context;
 
     if (context.payload.issue == undefined) {

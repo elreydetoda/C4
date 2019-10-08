@@ -36,8 +36,6 @@ module.exports =
 /******/ 		// Load entry module and return exports
 /******/ 		return __webpack_require__(63);
 /******/ 	};
-/******/ 	// initialize runtime
-/******/ 	runtime(__webpack_require__);
 /******/
 /******/ 	// run startup
 /******/ 	return startup();
@@ -1729,21 +1727,15 @@ module.exports = function(fn) {
 /***/ }),
 
 /***/ 63:
-/***/ (function(__unusedmodule, __webpack_exports__, __webpack_require__) {
+/***/ (function(__unusedmodule, __unusedexports, __webpack_require__) {
 
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _actions_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(670);
-/* harmony import */ var _actions_core__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_actions_core__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _actions_github__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(77);
-/* harmony import */ var _actions_github__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_actions_github__WEBPACK_IMPORTED_MODULE_1__);
-
-
+const core = __webpack_require__(670);
+const github = __webpack_require__(77);
 
 async function handleNewIssue() {
-    const token = Object(_actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput)('repo-token');
-    const octokit = new _actions_github__WEBPACK_IMPORTED_MODULE_1__.GitHub(token);
-    const context = _actions_github__WEBPACK_IMPORTED_MODULE_1__.context;
+    const token = core.getInput('repo-token');
+    const octokit = new github.GitHub(token, { log: console });
+    const context = github.context;
 
     if (context.payload.issue == undefined) {
         throw Error(`This action should be run against issue events.
@@ -1751,34 +1743,42 @@ async function handleNewIssue() {
     }
 
     const issue = context.payload.issue;
-    console.log(issue.labels);
+    console.log(context.payload.repository.owner.login);
+    console.log(context.payload.repository.name);
 
-    if (!issue.title.startsWith("[NFS]") || !issue.labels.contains("NFS")) {
+    if (!(issue.title.startsWith("[NFS]") && hasNfsLabel(issue.labels))) {
         console.log("The issue is not a new NFS submission.");
         return;
     }
 
     title = issue.title.slice(5);
-    var color = "000000".replace(/0/g,function(){return (~~(Math.random()*16)).toString(16);});
+    color = "000000".replace(/0/g, function () { return (~~(Math.random() * 16)).toString(16); });
 
     // Create a label with a valid description
     await octokit.issues.createLabel({
-        ...context.payload.repository.owner,
-        ...context.payload.repository.name,
-        ...color,
+        owner: context.payload.repository.owner.login,
+        repo: context.payload.repository.name,
+        color: color,
         name: title,
         description: `specific to ${title} c2 framework`,
     });
 
+    labels = ["video", "NFS", "enhancement", title];
+    console.log(labels);
+
     // Create the issue for the video
     await octokit.issues.create({
-        ...context.payload.repository.owner,
-        ...context.payload.repository.name,
+        owner: context.payload.repository.owner.login,
+        repo: context.payload.repository.name,
         title: "[VIDEO] ".concat(title),
-        labels: ["video", "NFS", "enhancement", title],
         body: "Test issue body for now",
+        labels: labels,
     });
 
+}
+
+function hasNfsLabel(labelArray) {
+    return labelArray.filter(label => { return label.name == 'NFS' }).length > 0
 }
 
 handleNewIssue()
@@ -1787,7 +1787,7 @@ handleNewIssue()
             console.log("Success");
         },
         err => {
-            console.log(`Errored: ${err}`);
+            console.log(`Errored: ${err.message}`);
         }
     )
     .then(
@@ -11285,43 +11285,4 @@ exports.getUserAgent = getUserAgent;
 
 /***/ })
 
-/******/ },
-/******/ function(__webpack_require__) { // webpackRuntimeModules
-/******/ 	"use strict";
-/******/ 
-/******/ 	/* webpack/runtime/make namespace object */
-/******/ 	!function() {
-/******/ 		// define __esModule on exports
-/******/ 		__webpack_require__.r = function(exports) {
-/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
-/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
-/******/ 			}
-/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
-/******/ 		};
-/******/ 	}();
-/******/ 	
-/******/ 	/* webpack/runtime/compat get default export */
-/******/ 	!function() {
-/******/ 		// getDefaultExport function for compatibility with non-harmony modules
-/******/ 		__webpack_require__.n = function(module) {
-/******/ 			var getter = module && module.__esModule ?
-/******/ 				function getDefault() { return module['default']; } :
-/******/ 				function getModuleExports() { return module; };
-/******/ 			__webpack_require__.d(getter, 'a', getter);
-/******/ 			return getter;
-/******/ 		};
-/******/ 	}();
-/******/ 	
-/******/ 	/* webpack/runtime/define property getter */
-/******/ 	!function() {
-/******/ 		// define getter function for harmony exports
-/******/ 		var hasOwnProperty = Object.prototype.hasOwnProperty;
-/******/ 		__webpack_require__.d = function(exports, name, getter) {
-/******/ 			if(!hasOwnProperty.call(exports, name)) {
-/******/ 				Object.defineProperty(exports, name, { enumerable: true, get: getter });
-/******/ 			}
-/******/ 		};
-/******/ 	}();
-/******/ 	
-/******/ }
-);
+/******/ });
