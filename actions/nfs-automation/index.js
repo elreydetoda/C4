@@ -1,5 +1,7 @@
 const core = require('@actions/core');
-const github = require('@actions/github');
+const github = require('@actions/github')({
+    log: console
+});
 
 async function handleNewIssue() {
     const token = core.getInput('repo-token');
@@ -21,7 +23,7 @@ async function handleNewIssue() {
     }
 
     title = issue.title.slice(5);
-    color = "000000".replace(/0/g,function(){return (~~(Math.random()*16)).toString(16);});
+    color = "000000".replace(/0/g, function () { return (~~(Math.random() * 16)).toString(16); });
 
     // Create a label with a valid description
     await octokit.issues.createLabel({
@@ -32,13 +34,16 @@ async function handleNewIssue() {
         description: `specific to ${title} c2 framework`,
     });
 
+    labels = ["video", "NFS", "enhancement", title];
+    console.log(labels);
+
     // Create the issue for the video
     await octokit.issues.create({
         owner: context.payload.repository.owner.login,
         repo: context.payload.repository.name,
         title: "[VIDEO] ".concat(title),
-        // labels: ["video", "NFS", "enhancement", title],
-        // body: "Test issue body for now",
+        body: "Test issue body for now",
+        labels: labels,
     });
 
 }
@@ -53,7 +58,7 @@ handleNewIssue()
             console.log("Success");
         },
         err => {
-            console.log(`Errored: ${err}`);
+            console.log(`Errored: ${err.message}`);
         }
     )
     .then(
