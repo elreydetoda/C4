@@ -11,6 +11,11 @@ async function handleNewIssue() {
                     See https://help.github.com/en/articles/events-that-trigger-workflows#issues-event-issues`);
     }
 
+    if (token === null) {
+        throw Error(`You need to define your `repo-token` in the secrets section.
+                    See https://help.github.com/en/articles/virtual-environments-for-github-actions#creating-and-using-secrets-encrypted-variables`);
+    }
+
     const issue = context.payload.issue;
     console.log(context.payload.repository.owner.login);
     console.log(context.payload.repository.name);
