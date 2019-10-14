@@ -3,3 +3,4 @@
 *.swp
 *.bak
 *.bak/
+*node_modules/
