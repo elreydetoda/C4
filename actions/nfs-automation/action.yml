@@ -8,4 +8,4 @@ inputs:
 
 runs:
   using: 'docker'
-  main: 'Dockerfile'
+  main: './action/nfs-automation/Dockerfile'
