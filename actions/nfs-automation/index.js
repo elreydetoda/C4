@@ -12,7 +12,7 @@ async function handleNewIssue() {
     }
 
     if (token === null) {
-        throw Error(`You need to define your `repo-token` in the secrets section.
+        throw Error(`You need to define your repo-token in the secrets section.
                     See https://help.github.com/en/articles/virtual-environments-for-github-actions#creating-and-using-secrets-encrypted-variables`);
     }
 
