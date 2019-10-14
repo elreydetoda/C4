@@ -9,4 +9,3 @@ inputs:
 runs:
   using: 'docker'
   image: 'Dockerfile'
-  main: 'index.js'
