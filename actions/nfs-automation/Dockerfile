@@ -3,4 +3,4 @@ COPY . /nfs-automation
 WORKDIR /nfs-automation
 RUN npm install
 RUN ls
-ENTRYPOINT [ "./entrypoint.sh" ]
+ENTRYPOINT [ "/nfs-automation/entrypoint.sh" ]
