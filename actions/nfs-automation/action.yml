@@ -8,4 +8,5 @@ inputs:
 
 runs:
   using: 'docker'
-  main: './action/nfs-automation/Dockerfile'
+  image: 'Dockerfile'
+  main: 'index.js'
