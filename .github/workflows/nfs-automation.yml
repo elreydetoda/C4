@@ -8,7 +8,7 @@ jobs:
   handle_new_issue:
     runs-on: ubuntu-latest
     container:
-      image: node:12-latest
+      image: Dockerfile
     steps:
       - name: Checkout
         uses: actions/checkout@v1
