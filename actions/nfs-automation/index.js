@@ -6,7 +6,7 @@ async function handleNewIssue() {
     const octokit = new github.GitHub(token, { log: console });
     const context = github.context;
 
-    if (context.payload.issue == undefined) {
+    if (context.payload.issue === undefined) {
         throw Error(`This action should be run against issue events.
                     See https://help.github.com/en/articles/events-that-trigger-workflows#issues-event-issues`);
     }
@@ -47,7 +47,7 @@ async function handleNewIssue() {
 }
 
 function hasNfsLabel(labelArray) {
-    return labelArray.filter(label => { return label.name == 'NFS' }).length > 0
+    return labelArray.filter(label => { return label.name === 'NFS' }).length > 0
 }
 
 handleNewIssue()
